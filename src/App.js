@@ -1,10 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
+import FinancialTable from './FinancialTable';
 
 function App() {
   return (
     <div className="App">
-    hello world
+      <FinancialTable />
     </div>
   );
 }
