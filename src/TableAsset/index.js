@@ -1,5 +1,6 @@
-export const dataSource = [
+export const  dataSource = [
     {
+        key:'0',
         million: "Accounting Standard",
         "13/12/2021": "IFRC",
         "13/12/2022": "IFRC",
@@ -8,6 +9,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'1',
         million: "Audit method",
         "13/12/2021": "IFRS16ADJ",
         "13/12/2022": "IFRS16ADJ",
@@ -15,7 +17,7 @@ export const dataSource = [
         variance: "",
         "variance%": "",
     },
-    {
+    {  key:'2',
         million: "Display Name",
         "13/12/2021": "HKD",
         "13/12/2022": "HKD",
@@ -24,6 +26,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'3',
         million: "FX Rate",
         "13/12/2021": "0.1286",
         "13/12/2022": "0.1286",
@@ -32,6 +35,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'4',
         million: "Revenue",
         "13/12/2021": "",
         "13/12/2022": "",
@@ -40,6 +44,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'5',
         million: "Passenger",
         "13/12/2021": "4357.00",
         "13/12/2022": "14333.00",
@@ -48,6 +53,7 @@ export const dataSource = [
         "variance%": "+6.1%",
     },
     {
+        key:'6',
         million: "Cargo",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -56,6 +62,7 @@ export const dataSource = [
         "variance%": "-4.1",
     },
     {
+        key:'7',
         million: "Others",
         "13/12/2021": "",
         "13/12/2022": "",
@@ -82,9 +89,11 @@ export const dataSource = [
         ],
     },
     {
+        key:'8',
         million: "Operating expense",
     },
     {
+        key:'9',
         million: "Fuel",
         "13/12/2021": "4357.00",
         "13/12/2022": "14333.00",
@@ -93,6 +102,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'10',
         million: "Labur",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -101,6 +111,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'11',
         million: "Landing fee and route chnage",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -109,6 +120,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'12',
         million: "Maintence, meterials and...",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -117,6 +129,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
+        key:'13',
         million: "Others",
         "13/12/2021": "",
         "13/12/2022": "",
@@ -148,7 +161,7 @@ export const columns = [
     {
         title: "(million)",
         dataIndex: "million",
-        key: "million",
+        // key: "million",
         width: "12%",
         render: (text) => <div style={{ fontSize: '12px' }}>{text}</div>,
         onCell: () => ({
@@ -160,15 +173,17 @@ export const columns = [
     {
         title: "13/12/2021",
         dataIndex: "13/12/2021",
-        key: "13/12/2021",
+        // key: "13/12/2021",
         width: "10%",
+        editable: true,
         render: (text) => <div style={{ fontSize: '12px',textAlign: 'center' }}>{text}</div>
     },
     {
         title: "13/12/2022",
         dataIndex: "13/12/2022",
-        key: "13/12/2022",
+        // key: "13/12/2022",
         width: "10%",
+        editable: true,
         render: (text) => <div style={{ fontSize: '12px',textAlign: 'center' }}>{text}</div>,
         onCell: () => ({
             style: {
@@ -180,14 +195,15 @@ export const columns = [
     {
         title: "13/12/2024",
         dataIndex: "13/12/2024",
-        key: "13/12/2024",
+        // key: "13/12/2024",
         width: "12%",
+        editable: true,
         render: (text) => <div style={{ fontSize: '12px',textAlign: 'center' }}>{text}</div>
     },
     {
         title: "variance",
         dataIndex: "variance",
-        key: "variance",
+        // key: "variance",
         width: "10%",
         render: (text) => <div style={{ color: "green", fontSize: '12px', fontWeight: '600',textAlign: 'center' }}>{text}</div>,
         onCell: () => ({
@@ -199,7 +215,7 @@ export const columns = [
     {
         title: "variance%",
         dataIndex: "variance%",
-        key: "variance%",
+        // key: "variance%",
         width: "10%",
         render: (text) => <div style={{ color: "red", fontWeight: '600', fontSize: '12px',textAlign: 'center' }}>{text}</div>,
     },
