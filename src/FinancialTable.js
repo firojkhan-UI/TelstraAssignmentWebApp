@@ -31,17 +31,20 @@ const EditableCell = ({
   const [editing, setEditing] = useState(false);
   const inputRef = useRef(null);
   const form = useContext(EditableContext);
+
   useEffect(() => {
     if (editing) {
       inputRef.current?.focus();
     }
   }, [editing]);
+
   const toggleEdit = () => {
     setEditing(!editing);
     form?.setFieldsValue({
       [dataIndex]: record[dataIndex],
     });
   };
+  
   const save = async () => {
     try {
       const values = await form?.validateFields();
@@ -54,6 +57,7 @@ const EditableCell = ({
       console.log('Save failed:', errInfo);
     }
   };
+  
   let childNode = children;
   if (editable) {
     childNode = editing ? (
@@ -89,7 +93,6 @@ const EditableCell = ({
 
 const FinancialTable = () => {
   const [dataSource, setDataSource] = useState(data)
-
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
