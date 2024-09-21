@@ -74,6 +74,14 @@ const dataSource = [
         variance: "-1275.00",
         "variance%": "-2.5%",
       },
+      {
+        million: "",
+        "13/12/2021": "",
+        "13/12/2022": "",
+        "13/12/2024": "",
+        variance: "",
+        "variance%": "",
+      },
     ],
   },
   {
@@ -166,24 +174,30 @@ const columns = [
     title: "variance",
     dataIndex: "variance",
     key: "variance",
+    render: (text) => <div style={{ color: "green", fontWeight: '600' }}>{text}</div>,
   },
   {
     title: "variance%",
     dataIndex: "variance%",
     key: "variance%",
-    render: (text) => <div style={{ color: "red" }}>{text}</div>,
+    render: (text) => <div style={{ color: "red",fontWeight: '600' }}>{text}</div>,
   },
 ];
 
 const FinancialTable = () => {
   return (
     <>
-      <Table
-        bordered={true}
-        expandable={{}}
-        dataSource={dataSource}
-        columns={columns}
-      />
+      <div style={{border:'1px solid #cbc0c0', padding: '8px'}}>
+        <h2 style={{float: 'left'}}>Financial Statement</h2>
+        <Table
+    
+          bordered={true}
+          expandable={{}}
+          dataSource={dataSource}
+          columns={columns}
+         
+        />
+      </div>
     </>
   );
 };
