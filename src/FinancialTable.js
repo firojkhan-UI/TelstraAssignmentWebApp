@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Table } from 'antd';
-import { columns as defaultColumns, dataSource as data } from './TableAsset';
+import { Table, Form, Input } from 'antd';
+import { dataSource as initialData } from './TableAsset';
 import TabComponent from './Components/TabComponent';
 import Heading from './Components/Heading';
 import ButtonComponent from './Components/ButtonComponent';
-import {Form, Input} from 'antd';
 
 const EditableContext = React.createContext(null);
 
@@ -44,7 +43,7 @@ const EditableCell = ({
       [dataIndex]: record[dataIndex],
     });
   };
-  
+
   const save = async () => {
     try {
       const values = await form?.validateFields();
@@ -57,42 +56,106 @@ const EditableCell = ({
       console.log('Save failed:', errInfo);
     }
   };
-  
+
   let childNode = children;
   if (editable) {
     childNode = editing ? (
       <Form.Item
-        style={{
-          margin: 0,
-        }}
+        style={{ margin: 0 }}
         name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
+        rules={[{ required: true, message: `${title} is required.` }]}
       >
         <Input ref={inputRef} onPressEnter={save} onBlur={save} />
       </Form.Item>
     ) : (
       <div
         className="editable-cell-value-wrap"
-        style={{
-          paddingInlineEnd: 24,
-        }}
+        style={{ paddingInlineEnd: 24 }}
         onClick={toggleEdit}
       >
         {children}
       </div>
     );
   }
+
   return <td {...restProps}>{childNode}</td>;
 };
 
-
 const FinancialTable = () => {
-  const [dataSource, setDataSource] = useState(data)
+  const [dataSource, setDataSource] = useState(initialData);
+  const [count, setCount] = useState(initialData.length);
+
+  const handleAdd = (index) => {
+    console.log(index,"ind:::::", count,"count:::::")
+    const newData = {
+      key: count.toString(),
+      million: 'New Row',
+      '13/12/2021': '',
+      '13/12/2022': '',
+      '13/12/2024': '',
+      variance: '',
+      editable: true,
+      'variance%': '',
+    };
+    const newDataSource = [...dataSource];
+    newDataSource.splice(index + 1, 0, newData);
+    setDataSource(newDataSource);
+    setCount(count + 1);
+  };
+
+  const defaultColumns = [
+    {
+      title: "(million)",
+      dataIndex: "million",
+      key: "million",
+      width: "8%",
+      render: (text, record, index) => {
+        console.log(record,"rec:::::")
+        if (text === 'Others') {
+          return (
+            <div style={{ fontWeight: '700', cursor: 'pointer' }} onClick={() => handleAdd(index)}>
+              Others+
+            </div>
+          );
+        }
+        return text;
+      },
+    },
+    {
+      title: "13/12/2021",
+      dataIndex: "13/12/2021",
+      key: "13/12/2021",
+      width: "4%",
+      editable: true,
+    },
+    {
+      title: "13/12/2022",
+      dataIndex: "13/12/2022",
+      key: "13/12/2022",
+      width: "4%",
+      editable: true,
+    },
+    {
+      title: "13/12/2024",
+      dataIndex: "13/12/2024",
+      key: "13/12/2024",
+      width: "4%",
+      editable: true,
+    },
+    {
+      title: "variance",
+      dataIndex: "variance",
+      key: "variance",
+      width: "4%",
+    },
+    {
+      title: "variance%",
+      dataIndex: "variance%",
+      key: "variance%",
+      width: "4%",
+    },
+  ];
+
   const columns = defaultColumns.map((col) => {
     if (!col.editable) {
       return col;
@@ -128,24 +191,22 @@ const FinancialTable = () => {
   };
 
   return (
-    <>
-      <div style={{border: '1px solid grey', padding: '8px'}}>
-        <Heading text = "Financical statement" />
-        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+    <div style={{ border: '1px solid grey', padding: '8px' }}>
+      <Heading text="Financial statement" />
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <TabComponent />
         <ButtonComponent />
-        </div>
-        <Table
-          components={components}
-          size="small"
-          bordered={true}
-          expandable={{}}
-          dataSource={dataSource}
-          columns={columns}
-          pagination={false}
-        />
       </div>
-    </>
+      <Table
+        components={components}
+        size="small"
+        bordered
+        expandable={{}}
+        dataSource={dataSource}
+        columns={columns}
+        pagination={false}
+      />
+    </div>
   );
 };
 
