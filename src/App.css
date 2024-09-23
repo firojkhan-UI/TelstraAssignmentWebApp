@@ -37,3 +37,13 @@
     transform: rotate(360deg);
   }
 }
+
+.isFirst {
+  /* border-color: #5d3ebc !important; */
+  border: 3px solid #f79d15 !important;
+  border-top: 1px;
+}
+
+.ant-table table {
+  border-collapse: collapse;
+}

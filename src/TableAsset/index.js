@@ -79,22 +79,23 @@ export const dataSource = [
                 variance: "-913.00",
                 "variance%": "-14.8%",
             },
-            {
-                million: "",
-                "13/12/2021": "",
-                "13/12/2022": "",
-                "13/12/2024": "",
-                variance: "",
-                "variance%": "",
-            },
         ],
     },
     {
         key: '8',
-        million: "Operating expense",
+        million: "sum",
+        "13/12/2021": "",
+        "13/12/2022": "",
+        "13/12/2024": "",
+        variance: "",
+        "variance%": "",
     },
     {
         key: '9',
+        million: "Operating expense",
+    },
+    {
+        key: '10',
         million: "Fuel",
         "13/12/2021": "4357.00",
         "13/12/2022": "14333.00",
@@ -103,7 +104,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
-        key: '10',
+        key: '11',
         million: "Labur",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -112,7 +113,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
-        key: '11',
+        key: '12',
         million: "Landing fee and route chnage",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -121,7 +122,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
-        key: '12',
+        key: '13',
         million: "Maintence, meterials and...",
         "13/12/2021": "35814.00",
         "13/12/2022": "30554.00",
@@ -130,7 +131,7 @@ export const dataSource = [
         "variance%": "",
     },
     {
-        key: '13',
+        key: '14',
         million: "Others",
         "13/12/2021": "",
         "13/12/2022": "",
@@ -156,6 +157,15 @@ export const dataSource = [
             },
         ],
     },
+    {
+        key: '15',
+        million: "Sum",
+        "13/12/2021": "",
+        "13/12/2022": "",
+        "13/12/2024": "",
+        variance: "",
+        "variance%": "",
+    },
 ];
 
 const handleText = text => {
@@ -163,6 +173,7 @@ const handleText = text => {
     else if (text === 'Revenue') return <div style={{ fontWeight: '700' }}>{text}</div>
     return <div>{text}</div>
 }
+
 
 export const columns = [
     {
