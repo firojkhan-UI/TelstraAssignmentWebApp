@@ -371,7 +371,6 @@ const FinancialTable = () => {
       }),
     };
   });
-
   const calculateFirstSum = () => {
     const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
     const newDataSource = [...dataSource];
@@ -404,11 +403,65 @@ const FinancialTable = () => {
         }
       });
   
+      // Calculate variance for the "sum" row
+      const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
+      if (sumRowIndex !== -1) {
+        const sum2022 = parseFloat(newDataSource[sumRowIndex]["13/12/2022"]);
+        const sum2024 = parseFloat(newDataSource[sumRowIndex]["13/12/2024"]);
+  
+        if (!isNaN(sum2022) && !isNaN(sum2024)) {
+          const variance = (sum2024 - sum2022).toFixed(2);
+          const variancePercentage = ((variance / sum2022) * 100).toFixed(2);
+  
+          newDataSource[sumRowIndex].variance = variance;
+          newDataSource[sumRowIndex]["variance%"] = `${variancePercentage}%`;
+          isDataChanged = true;
+        }
+      }
+  
       if (isDataChanged) {
         setDataSource(newDataSource);
       }
     }
   };
+  
+  // const calculateFirstSum = () => {
+  //   const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
+  //   const newDataSource = [...dataSource];
+  
+  //   const calculateYearSum = (startIndex, endIndex, year) => {
+  //     let sum = 0;
+  //     for (let i = startIndex; i <= endIndex; i++) {
+  //       const value = parseFloat(newDataSource[i][year]);
+  //       if (!isNaN(value)) {
+  //         sum += value;
+  //       }
+  //     }
+  //     const childValue = Number(newDataSource[7]["children"][0][year]);
+  //     return sum + childValue;
+  //   };
+  
+  //   const startIndex = newDataSource.findIndex(item => item.million === "FX Rate");
+  //   const endIndex = newDataSource.findIndex(item => item.million === "Cargo");
+  
+  //   if (startIndex !== -1 && endIndex !== -1) {
+  //     let isDataChanged = false;
+  
+  //     years.forEach(year => {
+  //       const sum = calculateYearSum(startIndex, endIndex, year);
+  //       const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
+  
+  //       if (sumRowIndex !== -1 && newDataSource[sumRowIndex][year] !== sum.toFixed(2)) {
+  //         newDataSource[sumRowIndex][year] = sum.toFixed(2);
+  //         isDataChanged = true;
+  //       }
+  //     });
+  
+  //     if (isDataChanged) {
+  //       setDataSource(newDataSource);
+  //     }
+  //   }
+  // };
   
   const calculateSecondSum = () => {
     const startLabel = "Fuel";
