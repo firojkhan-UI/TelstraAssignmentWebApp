@@ -101,7 +101,6 @@ const FinancialTable = () => {
   }
 
   const handleSecondColumn = text => {
-    console.log(text,"tttt")
       return <div>{text}</div>
   }
 
@@ -162,7 +161,7 @@ const FinancialTable = () => {
       dataIndex: "variance",
       key: "variance",
       width: "4%",
-      render: (text) => <div style={{ color: "green", fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>{text}</div>,
+      render: (text) => <div style={{ color: text > 0 ? "green" : 'red', fontSize: '12px', fontWeight: '600', textAlign: 'center' }}>{text}</div>,
       onCell: () => ({
         style: {
           backgroundColor: '#D3D3D3',
@@ -252,12 +251,20 @@ const FinancialTable = () => {
       "variance%": "",
       children: [
         {
+          // million: "Creating recovering and",
+          // "13/12/2021": "5416.00",
+          // "13/12/2022": "6149.00",
+          // "13/12/2024": "5236.00",
+          // variance: "-913.00",
+          // "variance%": "-14.8%",
+          // key: '9',
+          key: 'child',
           million: "Creating recovering and",
-          "13/12/2021": "5416.00",
-          "13/12/2022": "6149.00",
-          "13/12/2024": "5236.00",
-          variance: "-913.00",
-          "variance%": "-14.8%",
+          "13/12/2021": "1212",
+          "13/12/2022": "11",
+          "13/12/2024": "100",
+          variance: "",
+          "variance%": "",
         },
       ],
     },
@@ -348,6 +355,7 @@ const FinancialTable = () => {
     },
   ])
   const columns = defaultColumns.map((col) => {
+    console.log(col,"col::::")
     if (!col.editable) {
       return col;
     }
@@ -356,6 +364,7 @@ const FinancialTable = () => {
       onCell: (record) => ({
         record,
         editable: col.editable,
+        editable: col.editable && (record.million !== 'sum' || record.children),
         dataIndex: col.dataIndex,
         title: col.title,
         handleSave,
