@@ -49,6 +49,8 @@ const EditableCell = ({
     try {
       const values = await form?.validateFields();
       toggleEdit();
+      console.log(record, "record")
+      console.log(values, "values")
       handleSave({
         ...record,
         ...values,
@@ -96,12 +98,12 @@ const FinancialTable = () => {
   const handleText = text => {
     if (text === 'Operating expense') return <div style={{ fontWeight: '700' }}>{text}</div>
     else if (text === 'Revenue') return <div style={{ fontWeight: '700' }}>{text}</div>
-    else if (text === 'sum') return <div style={{ fontWeight: '700', display: text === 'sum' ? 'none': null }}>{text}</div>
+    else if (text === 'sum') return <div style={{ fontWeight: '700', display: text === 'sum' ? 'none' : null }}>{text}</div>
     return <div>{text}</div>
   }
 
   const handleSecondColumn = text => {
-      return <div>{text}</div>
+    return <div>{text}</div>
   }
 
   const defaultColumns = [
@@ -258,7 +260,7 @@ const FinancialTable = () => {
           // variance: "-913.00",
           // "variance%": "-14.8%",
           // key: '9',
-          key: 'child',
+          key: '01-child-others',
           million: "Creating recovering and",
           "13/12/2021": "1212",
           "13/12/2022": "11",
@@ -355,7 +357,6 @@ const FinancialTable = () => {
     },
   ])
   const columns = defaultColumns.map((col) => {
-    console.log(col,"col::::")
     if (!col.editable) {
       return col;
     }
@@ -371,64 +372,10 @@ const FinancialTable = () => {
       }),
     };
   });
-  const calculateFirstSum = () => {
-    const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
-    const newDataSource = [...dataSource];
-  
-    const calculateYearSum = (startIndex, endIndex, year) => {
-      let sum = 0;
-      for (let i = startIndex; i <= endIndex; i++) {
-        const value = parseFloat(newDataSource[i][year]);
-        if (!isNaN(value)) {
-          sum += value;
-        }
-      }
-      const childValue = Number(newDataSource[7]["children"][0][year]);
-      return sum + childValue;
-    };
-  
-    const startIndex = newDataSource.findIndex(item => item.million === "FX Rate");
-    const endIndex = newDataSource.findIndex(item => item.million === "Cargo");
-  
-    if (startIndex !== -1 && endIndex !== -1) {
-      let isDataChanged = false;
-  
-      years.forEach(year => {
-        const sum = calculateYearSum(startIndex, endIndex, year);
-        const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
-  
-        if (sumRowIndex !== -1 && newDataSource[sumRowIndex][year] !== sum.toFixed(2)) {
-          newDataSource[sumRowIndex][year] = sum.toFixed(2);
-          isDataChanged = true;
-        }
-      });
-  
-      // Calculate variance for the "sum" row
-      const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
-      if (sumRowIndex !== -1) {
-        const sum2022 = parseFloat(newDataSource[sumRowIndex]["13/12/2022"]);
-        const sum2024 = parseFloat(newDataSource[sumRowIndex]["13/12/2024"]);
-  
-        if (!isNaN(sum2022) && !isNaN(sum2024)) {
-          const variance = (sum2024 - sum2022).toFixed(2);
-          const variancePercentage = ((variance / sum2022) * 100).toFixed(2);
-  
-          newDataSource[sumRowIndex].variance = variance;
-          newDataSource[sumRowIndex]["variance%"] = `${variancePercentage}%`;
-          isDataChanged = true;
-        }
-      }
-  
-      if (isDataChanged) {
-        setDataSource(newDataSource);
-      }
-    }
-  };
-  
   // const calculateFirstSum = () => {
   //   const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
   //   const newDataSource = [...dataSource];
-  
+
   //   const calculateYearSum = (startIndex, endIndex, year) => {
   //     let sum = 0;
   //     for (let i = startIndex; i <= endIndex; i++) {
@@ -440,80 +387,180 @@ const FinancialTable = () => {
   //     const childValue = Number(newDataSource[7]["children"][0][year]);
   //     return sum + childValue;
   //   };
-  
+
   //   const startIndex = newDataSource.findIndex(item => item.million === "FX Rate");
   //   const endIndex = newDataSource.findIndex(item => item.million === "Cargo");
-  
+
   //   if (startIndex !== -1 && endIndex !== -1) {
   //     let isDataChanged = false;
-  
+
   //     years.forEach(year => {
   //       const sum = calculateYearSum(startIndex, endIndex, year);
   //       const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
-  
+
   //       if (sumRowIndex !== -1 && newDataSource[sumRowIndex][year] !== sum.toFixed(2)) {
   //         newDataSource[sumRowIndex][year] = sum.toFixed(2);
   //         isDataChanged = true;
   //       }
   //     });
-  
+
+  //     // Calculate variance for the "sum" row
+  //     const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
+  //     if (sumRowIndex !== -1) {
+  //       const sum2022 = parseFloat(newDataSource[sumRowIndex]["13/12/2022"]);
+  //       const sum2024 = parseFloat(newDataSource[sumRowIndex]["13/12/2024"]);
+
+  //       if (!isNaN(sum2022) && !isNaN(sum2024)) {
+  //         const variance = (sum2024 - sum2022).toFixed(2);
+  //         const variancePercentage = ((variance / sum2022) * 100).toFixed(2);
+
+  //         newDataSource[sumRowIndex].variance = variance;
+  //         newDataSource[sumRowIndex]["variance%"] = `${variancePercentage}%`;
+  //         isDataChanged = true;
+  //       }
+  //     }
+
   //     if (isDataChanged) {
   //       setDataSource(newDataSource);
   //     }
   //   }
   // };
-  
+
+  const calculateFirstSum = () => {
+    const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
+    const newDataSource = [...dataSource];
+
+    const calculateYearSum = (startIndex, endIndex, year) => {
+      let sum = 0;
+      for (let i = startIndex; i <= endIndex; i++) {
+        const value = parseFloat(newDataSource[i][year]);
+        if (!isNaN(value)) {
+          sum += value;
+        }
+      }
+      const childValue = Number(newDataSource[7]["children"][0][year]);
+      return sum + childValue;
+    };
+
+    const startIndex = newDataSource.findIndex(item => item.million === "FX Rate");
+    const endIndex = newDataSource.findIndex(item => item.million === "Cargo");
+
+    if (startIndex !== -1 && endIndex !== -1) {
+      let isDataChanged = false;
+
+      years.forEach(year => {
+        const sum = calculateYearSum(startIndex, endIndex, year);
+        const sumRowIndex = newDataSource.findIndex(item => item.million === "sum");
+
+        if (sumRowIndex !== -1 && newDataSource[sumRowIndex][year] !== sum.toFixed(2)) {
+          newDataSource[sumRowIndex][year] = sum.toFixed(2);
+          isDataChanged = true;
+        }
+      });
+
+      if (isDataChanged) {
+        setDataSource(newDataSource);
+      }
+    }
+  };
+
   const calculateSecondSum = () => {
     const startLabel = "Fuel";
     const endLabel = "Maintence, meterials and...";
     const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
     const newDataSource = [...dataSource];
-  
+
     const firojRowIndex = newDataSource.findIndex(item => item.million === "");
     const startIndex = newDataSource.findIndex(item => item.million === startLabel);
     const endIndex = newDataSource.findIndex(item => item.million === endLabel);
-  
+
     if (firojRowIndex !== -1 && startIndex !== -1 && endIndex !== -1) {
       let isDataChanged = false;
-  
+
       years.forEach(year => {
         let sum = 0;
-  
+
         for (let i = startIndex; i <= endIndex; i++) {
           const value = parseFloat(newDataSource[i][year]);
           if (!isNaN(value)) {
             sum += value;
           }
         }
-  
+
         if (newDataSource[firojRowIndex][year] !== sum.toFixed(2)) {
           newDataSource[firojRowIndex][year] = sum.toFixed(2);
-          isDataChanged = true; 
+          isDataChanged = true;
         }
       });
-  
+
       if (isDataChanged) {
         setDataSource(newDataSource);
       }
     }
   };
-  
+
   useEffect(() => {
     calculateFirstSum();
     calculateSecondSum();
   }, [dataSource]);
-  
+
 
 
   const handleSave = (row) => {
+    console.log(row, "row:::")
     const newData = [...dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
+    // let index; 
+    // newData.forEach((item,parentIndex) => {
+    //   debugger;
+    //   if(item?.children && item?.children?.length > 0) {
+    //    for(let i = 0; i < item?.children?.length; i++) {
+    //     if(item?.children[i].key === item?.key) {
+    //       index = parentIndex;
+    //       break
+    //     }
+    //    }
+
+
+    //   }
+    //   if(row.key === item.key) {
+    //     index = parentIndex
+    //   }
+    // });
+
+    let index;
+    let childrenIndex;
+    newData.forEach((item, parentIndex) => {
+      if (row.key === item.key) {
+        index = parentIndex
+      }
+      if (item?.children && item?.children?.length > 0) {
+        for (let i = 0; i < item?.children?.length; i++) {
+          if (item?.children[i].key === row?.key) {
+            childrenIndex = i;
+            index = parentIndex
+          }
+        }
+      }
+
     });
-    setDataSource(newData);
+    console.log(index)
+    console.log(childrenIndex)
+    if (childrenIndex == undefined || childrenIndex == null) {
+      newData[index] = row
+    }
+    else {
+      newData[index]['children'][childrenIndex] = row
+    }
+    // console.log(newData,"newData:::")
+
+    console.log(index, "index", newData, "editable row")
+
+    // const item = newData[index];
+    // newData.splice(index, 1, {
+    //   ...item,
+    //   ...row,
+    // });
+    setDataSource([...newData]);
   };
 
   const components = {
@@ -524,11 +571,10 @@ const FinancialTable = () => {
   };
 
   function getRow(record, index) {
-    console.log(record, index, "HAHAHAH");
     if (record.million === "sum") {
       return "isFirst";
     }
-    if(record.million === "") {
+    if (record.million === "") {
       return "isFirst"
     }
   }
