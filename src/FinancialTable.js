@@ -174,7 +174,7 @@ const FinancialTable = () => {
       dataIndex: "variance%",
       key: "variance%",
       width: "8%",
-      render: (text) => <div style={{ color: text < 0 ? "red": "green", fontWeight: '600', fontSize: '12px', textAlign: 'center' }}>{text}</div>
+      render: (text) => <div style={{ color: text < 0 ? "red" : "green", fontWeight: '600', fontSize: '12px', textAlign: 'center' }}>{text}</div>
     },
   ];
 
@@ -330,7 +330,7 @@ const FinancialTable = () => {
           "variance%": "-2.5%",
         },
         {
-          key:"17",
+          key: "17",
           million: "Restructuring cost",
           "13/12/2021": "385.00",
           "13/12/2022": "0.00",
@@ -359,7 +359,7 @@ const FinancialTable = () => {
       onCell: (record) => ({
         record,
         editable: col.editable,
-        editable: col.editable && (record.million !== 'sum' || record.children),
+        editable: col.editable && (record.million !== 'sum' || record.children) && (record.million !== '' || record.children),
         dataIndex: col.dataIndex,
         title: col.title,
         handleSave,
@@ -465,13 +465,13 @@ const FinancialTable = () => {
     const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
     const newDataSource = [...dataSource];
 
-    let newChild = newDataSource[14]?.children.reduce((acc,curr) =>{
-      for(let i = 0; i < years.length-1; i++) {
+    let newChild = newDataSource[14]?.children.reduce((acc, curr) => {
+      for (let i = 0; i < years.length - 1; i++) {
         return acc + Number(curr[years[i]])
       }
-    },0 )
+    }, 0)
 
-    console.log(newChild,"NNNNN")
+    console.log(newChild, "NNNNN")
 
     const firojRowIndex = newDataSource.findIndex(item => item.million === "");
     const startIndex = newDataSource.findIndex(item => item.million === startLabel);
