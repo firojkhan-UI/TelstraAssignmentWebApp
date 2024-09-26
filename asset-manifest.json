@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/%7BtelstraApp%7D/static/css/main.53be7ca6.css",
-    "main.js": "/%7BtelstraApp%7D/static/js/main.2652f2c9.js",
-    "static/js/453.724713c8.chunk.js": "/%7BtelstraApp%7D/static/js/453.724713c8.chunk.js",
-    "static/media/plus.png": "/%7BtelstraApp%7D/static/media/plus.74b3cd0c01922e996289.png",
-    "static/media/logo.svg": "/%7BtelstraApp%7D/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/%7BtelstraApp%7D/index.html",
-    "main.53be7ca6.css.map": "/%7BtelstraApp%7D/static/css/main.53be7ca6.css.map",
-    "main.2652f2c9.js.map": "/%7BtelstraApp%7D/static/js/main.2652f2c9.js.map",
-    "453.724713c8.chunk.js.map": "/%7BtelstraApp%7D/static/js/453.724713c8.chunk.js.map"
+    "main.css": "/%7Btelstra-assignment-app%7D/static/css/main.53be7ca6.css",
+    "main.js": "/%7Btelstra-assignment-app%7D/static/js/main.60423cd2.js",
+    "static/js/453.724713c8.chunk.js": "/%7Btelstra-assignment-app%7D/static/js/453.724713c8.chunk.js",
+    "static/media/plus.png": "/%7Btelstra-assignment-app%7D/static/media/plus.74b3cd0c01922e996289.png",
+    "static/media/logo.svg": "/%7Btelstra-assignment-app%7D/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/%7Btelstra-assignment-app%7D/index.html",
+    "main.53be7ca6.css.map": "/%7Btelstra-assignment-app%7D/static/css/main.53be7ca6.css.map",
+    "main.60423cd2.js.map": "/%7Btelstra-assignment-app%7D/static/js/main.60423cd2.js.map",
+    "453.724713c8.chunk.js.map": "/%7Btelstra-assignment-app%7D/static/js/453.724713c8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.53be7ca6.css",
-    "static/js/main.2652f2c9.js"
+    "static/js/main.60423cd2.js"
   ]
 }
