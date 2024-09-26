@@ -37,3 +37,22 @@
     transform: rotate(360deg);
   }
 }
+
+.isFirst {
+  /* border-color: #5d3ebc !important; */
+  border: 3px solid #f79d15 !important;
+  border-top: 1px;
+  font-weight: 700;
+}
+
+.ant-table table {
+  border-collapse: collapse;
+}
+
+.ant-table-row-expand-icon{
+  position: relative;
+  color: #ffff !important;
+  left: 70px;
+  background: #282c34 !important;
+  border-radius: 25px !important;
+}
