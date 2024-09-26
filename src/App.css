@@ -48,3 +48,11 @@
 .ant-table table {
   border-collapse: collapse;
 }
+
+.ant-table-row-expand-icon{
+  position: relative;
+  color: #ffff !important;
+  left: 70px;
+  background: #282c34 !important;
+  border-radius: 25px !important;
+}

@@ -94,7 +94,6 @@ const EditableCell = ({
 
 
 const FinancialTable = () => {
-
   const handleText = text => {
     if (text === 'Operating expense') return <div style={{ fontWeight: '700' }}>{text}</div>
     else if (text === 'Revenue') return <div style={{ fontWeight: '700' }}>{text}</div>
@@ -175,7 +174,7 @@ const FinancialTable = () => {
       dataIndex: "variance%",
       key: "variance%",
       width: "8%",
-      render: (text) => <div style={{ color: "red", fontWeight: '600', fontSize: '12px', textAlign: 'center' }}>{text}</div>
+      render: (text) => <div style={{ color: text < 0 ? "red": "green", fontWeight: '600', fontSize: '12px', textAlign: 'center' }}>{text}</div>
     },
   ];
 
@@ -232,7 +231,7 @@ const FinancialTable = () => {
       "13/12/2022": "14333.00",
       "13/12/2024": "15213.00",
       variance: "880.0",
-      "variance%": "+6.1%",
+      "variance%": "6.1%",
     },
     {
       key: '6',
@@ -253,25 +252,18 @@ const FinancialTable = () => {
       "variance%": "",
       children: [
         {
-          // million: "Creating recovering and",
-          // "13/12/2021": "5416.00",
-          // "13/12/2022": "6149.00",
-          // "13/12/2024": "5236.00",
-          // variance: "-913.00",
-          // "variance%": "-14.8%",
-          // key: '9',
-          key: '01-child-others',
+          key: '8',
           million: "Creating recovering and",
           "13/12/2021": "1212",
           "13/12/2022": "11",
           "13/12/2024": "100",
           variance: "",
           "variance%": "",
-        },
+        }
       ],
     },
     {
-      key: '8',
+      key: '9',
       million: "sum",
       "13/12/2021": "",
       "13/12/2022": "",
@@ -280,11 +272,11 @@ const FinancialTable = () => {
       "variance%": "",
     },
     {
-      key: '9',
+      key: '10',
       million: "Operating expense",
     },
     {
-      key: '10',
+      key: '11',
       million: "Fuel",
       "13/12/2021": "4357.00",
       "13/12/2022": "14333.00",
@@ -293,7 +285,7 @@ const FinancialTable = () => {
       "variance%": "",
     },
     {
-      key: '11',
+      key: '12',
       million: "Labur",
       "13/12/2021": "35814.00",
       "13/12/2022": "30554.00",
@@ -302,7 +294,7 @@ const FinancialTable = () => {
       "variance%": "",
     },
     {
-      key: '12',
+      key: '13',
       million: "Landing fee and route chnage",
       "13/12/2021": "35814.00",
       "13/12/2022": "30554.00",
@@ -311,7 +303,7 @@ const FinancialTable = () => {
       "variance%": "",
     },
     {
-      key: '13',
+      key: '14',
       million: "Maintence, meterials and...",
       "13/12/2021": "35814.00",
       "13/12/2022": "30554.00",
@@ -320,7 +312,7 @@ const FinancialTable = () => {
       "variance%": "",
     },
     {
-      key: '14',
+      key: '15',
       million: "Others",
       "13/12/2021": "",
       "13/12/2022": "",
@@ -329,6 +321,7 @@ const FinancialTable = () => {
       "variance%": "",
       children: [
         {
+          key: "16",
           million: "InFlight and passenger...",
           "13/12/2021": "5416.00",
           "13/12/2022": "6149.00",
@@ -337,17 +330,18 @@ const FinancialTable = () => {
           "variance%": "-2.5%",
         },
         {
+          key:"17",
           million: "Restructuring cost",
           "13/12/2021": "385.00",
-          "13/12/2022": "",
-          "13/12/2024": "",
+          "13/12/2022": "0.00",
+          "13/12/2024": "0.00",
           variance: "",
           "variance%": "",
         },
       ],
     },
     {
-      key: '15',
+      key: '18',
       million: "",
       "13/12/2021": "",
       "13/12/2022": "",
@@ -438,6 +432,7 @@ const FinancialTable = () => {
           sum += value;
         }
       }
+
       const childValue = Number(newDataSource[7]["children"][0][year]);
       return sum + childValue;
     };
@@ -469,6 +464,14 @@ const FinancialTable = () => {
     const endLabel = "Maintence, meterials and...";
     const years = ["13/12/2021", "13/12/2022", "13/12/2024"];
     const newDataSource = [...dataSource];
+
+    let newChild = newDataSource[14]?.children.reduce((acc,curr) =>{
+      for(let i = 0; i < years.length-1; i++) {
+        return acc + Number(curr[years[i]])
+      }
+    },0 )
+
+    console.log(newChild,"NNNNN")
 
     const firojRowIndex = newDataSource.findIndex(item => item.million === "");
     const startIndex = newDataSource.findIndex(item => item.million === startLabel);
