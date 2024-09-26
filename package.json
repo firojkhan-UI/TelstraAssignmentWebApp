@@ -1,6 +1,7 @@
 {
   "homepage": "https://your-username.github.io/telstra-assignment-app",
   "name": "telstra-assignment-app",
+  "deploy": "gh-pages -d build --branch gh-pages",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
